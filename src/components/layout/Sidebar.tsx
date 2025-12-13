@@ -4,17 +4,27 @@ import {
   History, 
   FileText, 
   Settings,
-  Heart
+  Heart,
+  TrendingUp,
+  Bell,
+  User,
+  Shield,
+  Sparkles
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", path: "/" },
+  { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
   { icon: Mic, label: "Voice Log", path: "/voice-log" },
+  { icon: Sparkles, label: "Voice Analysis", path: "/analysis" },
   { icon: History, label: "Health History", path: "/history" },
+  { icon: TrendingUp, label: "Insights", path: "/insights" },
   { icon: FileText, label: "Reports", path: "/reports" },
+  { icon: Bell, label: "Reminders", path: "/reminders" },
+  { icon: User, label: "Profile", path: "/profile" },
   { icon: Settings, label: "Settings", path: "/settings" },
+  { icon: Shield, label: "Privacy", path: "/privacy" },
 ];
 
 export function Sidebar() {
