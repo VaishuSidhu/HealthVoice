@@ -1,9 +1,10 @@
-import { Heart, Mail, Lock, ArrowRight } from "lucide-react";
+import { Mail, Lock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Logo } from "@/components/Logo";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function Login() {
       <div className="hidden lg:flex lg:w-1/2 bg-primary p-12 flex-col justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-foreground/20">
-            <Heart className="h-5 w-5 text-primary-foreground" />
+            <Logo size="md" className="text-primary-foreground" />
           </div>
           <span className="text-xl font-semibold text-primary-foreground">HealthVoice</span>
         </div>
@@ -49,8 +50,8 @@ export default function Login() {
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-              <Heart className="h-5 w-5 text-primary-foreground" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2563EB]">
+              <Logo size="md" className="text-white" />
             </div>
             <span className="text-xl font-semibold text-foreground">HealthVoice</span>
           </div>
