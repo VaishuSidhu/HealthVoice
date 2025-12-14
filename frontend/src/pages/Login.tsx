@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { setUserName } from "@/lib/userSession";
 import { Logo } from "@/components/Logo";
 
 export default function Login() {
@@ -15,6 +16,19 @@ export default function Login() {
     setIsLoading(true);
     // Simulate login
     setTimeout(() => {
+      // derive a display name from the email input
+      const form = e.target as HTMLFormElement;
+      const data = new FormData(form);
+      const email = (data.get("email") as string) || "";
+      if (email) {
+        const local = email.split("@")[0];
+        const name = local
+          .split(/\.|_|\-/)
+          .filter(Boolean)
+          .map((s) => s[0].toUpperCase() + s.slice(1))
+          .join(" ");
+        setUserName(name);
+      }
       setIsLoading(false);
       navigate("/dashboard");
     }, 1000);

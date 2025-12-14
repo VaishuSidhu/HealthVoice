@@ -1,6 +1,8 @@
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { User, Bell, Shield, Mic, Globe } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import { useEffect, useRef, useState } from "react";
+import { getUserName, setUserName } from "@/lib/userSession";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,6 +36,21 @@ const settingsSections = [
 ];
 
 export default function Settings() {
+  const [name, setName] = useState<string | null>(null);
+
+  useEffect(() => {
+    setName(getUserName());
+  }, []);
+
+  const displayName = name ?? "Guest";
+  const nameRef = useRef<HTMLInputElement | null>(null);
+  const initials = displayName
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((n) => n[0].toUpperCase())
+    .join("");
+
   return (
     <DashboardLayout>
       <div className="space-y-6 max-w-3xl">
@@ -47,10 +64,10 @@ export default function Settings() {
         <div className="rounded-2xl bg-card border border-border p-6 card-shadow animate-fade-in">
           <div className="flex items-center gap-4 mb-6">
             <div className="h-16 w-16 rounded-full bg-accent flex items-center justify-center">
-              <span className="text-xl font-semibold text-accent-foreground">JD</span>
+              <span className="text-xl font-semibold text-accent-foreground">{initials}</span>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-foreground">John Doe</h3>
+              <h3 className="text-lg font-semibold text-foreground">{displayName}</h3>
               <p className="text-sm text-muted-foreground">john.doe@email.com</p>
             </div>
           </div>
@@ -58,13 +75,24 @@ export default function Settings() {
           <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="name">Full Name</Label>
-              <Input id="name" defaultValue="John Doe" />
+              <Input id="name" ref={nameRef} defaultValue={displayName} />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input id="email" type="email" defaultValue="john.doe@email.com" />
             </div>
-            <Button className="w-fit">Save Changes</Button>
+            <Button
+              className="w-fit"
+              onClick={() => {
+                const newName = nameRef.current?.value || "";
+                if (newName) {
+                  setUserName(newName);
+                  setName(newName);
+                }
+              }}
+            >
+              Save Changes
+            </Button>
           </div>
         </div>
 

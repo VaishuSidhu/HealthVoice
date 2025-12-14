@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { getUserName } from "@/lib/userSession";
 import { Logo } from "@/components/Logo";
 
 const navItems = [
@@ -28,6 +30,20 @@ const navItems = [
 ];
 
 export function Sidebar() {
+  const [name, setName] = useState<string | null>(null);
+
+  useEffect(() => {
+    setName(getUserName());
+  }, []);
+
+  const displayName = name ?? "Guest";
+  const initials = displayName
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((n) => n[0].toUpperCase())
+    .join("");
+
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-sidebar border-r border-sidebar-border">
       <div className="flex h-full flex-col">
@@ -67,10 +83,10 @@ export function Sidebar() {
         <div className="px-6 py-4 border-t border-sidebar-border">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-full bg-accent flex items-center justify-center">
-              <span className="text-xs font-medium text-accent-foreground">JD</span>
+              <span className="text-xs font-medium text-accent-foreground">{initials}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-foreground truncate">John Doe</p>
+              <p className="text-sm font-medium text-foreground truncate">{displayName}</p>
               <p className="text-xs text-muted-foreground">Premium Plan</p>
             </div>
           </div>
