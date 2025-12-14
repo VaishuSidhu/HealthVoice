@@ -1,5 +1,4 @@
 # HealthVoice
-<<<<<<< HEAD
 
 HealthVoice is a voice-first HealthTech platform that transforms daily voice notes into structured, doctor-ready health insights. It combines a modern React frontend with a Flask backend and MongoDB to provide a streamlined experience for logging health events, tracking trends, and generating summaries.
 
